@@ -2,6 +2,7 @@ package com.burakkolay.credit.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.*;
 
@@ -32,6 +33,7 @@ public class Applicant implements Serializable {
     //@JsonManagedReference
 //    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @OneToMany(cascade = CascadeType.ALL)
+    @JsonUnwrapped
     private List<Credit> credit;
 
 }

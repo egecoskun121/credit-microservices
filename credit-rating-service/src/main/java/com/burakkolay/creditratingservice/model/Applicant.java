@@ -20,6 +20,7 @@ import java.util.List;
 public class Applicant implements Serializable {
 
     @Transient
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Id
@@ -39,6 +40,19 @@ public class Applicant implements Serializable {
     @JsonManagedReference
     @OneToMany
     private List<Credit> credit;
+
+    public Applicant deepCopy(Applicant applicant){
+        Applicant applicant1 = new Applicant(applicant.getId(),
+                applicant.getIdentificationNumber(),
+                applicant.getFirstName(),
+                applicant.getLastName(),
+                applicant.getMonthlyIncome(),
+                applicant.getPhoneNumber(),
+                applicant.getCreditRating(),
+                applicant.getCredit());
+
+        return applicant1;
+    }
 
 
 }
