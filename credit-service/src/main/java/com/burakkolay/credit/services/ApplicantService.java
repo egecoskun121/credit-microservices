@@ -7,6 +7,7 @@ import com.burakkolay.credit.exception.EntityNotFoundException;
 import com.burakkolay.credit.model.entity.Applicant;
 import com.burakkolay.credit.model.entity.Credit;
 import com.burakkolay.credit.model.DTO.ApplicantDTO;
+import com.burakkolay.credit.model.entity.CreditResult;
 import com.burakkolay.credit.model.mapper.ApplicantMapper;
 import com.burakkolay.credit.model.mapper.ApplicantMapperImpl;
 import com.burakkolay.credit.repository.ApplicantRepository;
@@ -62,17 +63,17 @@ public class ApplicantService {
         applicantRepository.deleteById(id);
     }
 
-    public Applicant addCreditToApplicant(Credit credit, Long applicantId) {
+    public void addCreditToApplicant(Credit credit, Long applicantId) {
         Applicant byId = getById(applicantId);
         if (getById(applicantId)==null)
             throw new ApplicantNotFoundException("Applicant",applicantId);
 
            log.debug("Applicant credit : " + byId.getCredit());
             List<Credit> credits=byId.getCredit();
+            credit.setCreditResult(CreditResult.WAITING);
             credits.add(credit);
             byId.setCredit(credits);
 
-        return applicantRepository.save(byId);
     }
 
     public Applicant update(ApplicantDTO applicantDTO,Long id){
@@ -97,11 +98,8 @@ public class ApplicantService {
         }));
     }
     /* TODO */
-    public Applicant applyToCredit(@RequestParam(name = "id") Long applicantId) {
-        Applicant applicant = getById(applicantId);
-
+    public void applyToCredit(@RequestParam(name = "id") Long applicantId) {
             Credit credit = creditService.create();
-            credit.setApplicant(applicant);
             //int creditRatingEvaluation=creditService.gradeMap.floorEntry(applicant.getCreditRating().getCreditRating()).getValue();
         /*
             int creditRatingEvaluation=500;
@@ -121,6 +119,6 @@ public class ApplicantService {
 
             // imaginary sms sent to customer here !
             creditService.sendSMS(applicant.getPhoneNumber());*/
-            return addCreditToApplicant(credit,applicantId);
+             addCreditToApplicant(credit,applicantId);
     }
 }

@@ -31,10 +31,15 @@ public class ApplicantService {
 //        for (Credit credit:applicant.getCredit()) {
 //            creditRepository.save(credit);
 //        }
-        System.out.println("Veri geldi");
-        System.out.println(applicant);
+
+
+        for (Credit credit:applicant.getCredit()) {
+            creditRepository.save(credit);
+        }
 //        Thread.sleep(2000);
-        applicantRepository.save(applicant);
+        Applicant copyApplicant = applicant.deepCopy(applicant);
+
+        applicantRepository.save(copyApplicant);
         sendMessage(applicant);
 //       return applicantRepository.save(applicant);
 
