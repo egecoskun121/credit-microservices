@@ -20,13 +20,11 @@ public class Credit implements Serializable {
     private Long id;
     private int creditBalance;
 
-    private String creditResult;
+    private CreditResult creditResult;
 
-    @ToString.Exclude
+
     //@JsonBackReference
-    @ManyToOne
-//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    private Applicant applicant;
 
+//    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 
 }

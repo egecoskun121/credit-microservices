@@ -4,6 +4,7 @@ import com.burakkolay.credit.config.RabbitMQConfig;
 import com.burakkolay.credit.model.entity.Applicant;
 import com.burakkolay.credit.model.DTO.ApplicantDTO;
 import com.burakkolay.credit.model.entity.Credit;
+import com.burakkolay.credit.model.entity.CreditResult;
 import com.burakkolay.credit.repository.ApplicantRepository;
 import com.burakkolay.credit.services.ApplicantService;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -79,35 +80,36 @@ public class ApplicantController {
 
     //@RabbitListener(queues = "credit-queue-2")
     @PutMapping("/apply/{id}")
-    public void applyToCredit(@PathVariable(name = "id") Long applicantId, Applicant  applicant2) throws InterruptedException {
+    public ResponseEntity applyToCredit(@PathVariable(name = "id") Long applicantId){
 
         //applicantService.applyToCredit(applicantId);
         Applicant applicant=applicantService.getById(applicantId);
+        applicantService.applyToCredit(applicantId);
         rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE,RabbitMQConfig.ROUTING_KEY,applicant);
-        System.out.println(applicant2);
 
-        /*
-         if (Objects.equals(applicant.getCredit().get(applicant.getCredit().size()-1).getCreditResult(), "Credit Result : Approved")) {
+
+
+         if (Objects.equals(applicant.getCredit().get(applicant.getCredit().size()-1).getCreditResult(), CreditResult.ACCEPTED)) {
              System.out.println("Applied to credit success");
             return ResponseEntity.status(HttpStatus.OK)
                     .body("""
                             Applied to credit successfully.
                             """+applicant.getCredit().get(applicant.getCredit().size()-1));
-        } else if(Objects.equals(applicant.getCredit().get(applicant.getCredit().size()-1).getCreditResult(), "Credit Result : Declined")) {
+        } else if(Objects.equals(applicant.getCredit().get(applicant.getCredit().size()-1).getCreditResult(), CreditResult.DENIED)) {
              return ResponseEntity.status(HttpStatus.OK)
                      .body("""
                             Applied to credit successfully.
                             """+applicant.getCredit().get(applicant.getCredit().size()-1));
         }else{
-             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body("Could not applied to credit!");
-         }*/
+             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(CreditResult.WAITING);
+         }
     }
 
     @Async
     @RabbitListener(queues = "credit-queue-2")
     public void listener(Applicant applicant){
         //ystem.out.println(applicant);
-        Applicant byId = applicantService.getById(applicant.getId());
+
         applicantRepository.save(applicant);
         /*
         Credit credit = applicantService.get;
@@ -125,6 +127,7 @@ public class ApplicantController {
             credit.setCreditResult("Credit Result : Approved");
             //credit.setCreditBalance((int) (applicant.getMonthlyIncome()*CREDIT_MULTIPLIER));
         }*/
+        System.out.println(applicant);
     }
 
 

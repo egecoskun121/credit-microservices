@@ -59,7 +59,6 @@ public class CreditController {
     public ResponseEntity createCredit(@RequestBody CreditDTO creditDTO, @PathVariable("id") Long id){
         Applicant applicant = applicantService.getById(id);
         Credit credit = creditMapper.toCredit(creditDTO);
-        credit.setApplicant(applicant);
         List<Credit> credits=applicant.getCredit();
         credits.add(credit);
         applicant.setCredit(credits);
