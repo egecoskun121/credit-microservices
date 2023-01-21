@@ -2,7 +2,6 @@ package com.burakkolay.credit.exception.handler;
 
 
 import com.burakkolay.credit.exception.ApplicantNotFoundException;
-import com.burakkolay.credit.exception.CustomJwtException;
 import com.burakkolay.credit.exception.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

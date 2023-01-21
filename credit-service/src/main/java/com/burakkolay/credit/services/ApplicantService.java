@@ -46,8 +46,7 @@ public class ApplicantService {
 
 
     public List<Applicant> getAllApplicants() {
-        List<Applicant> allApplicants = applicantRepository.findAll();
-        return allApplicants;
+        return applicantRepository.findAll();
     }
 
     public Applicant getById(Long id) {
