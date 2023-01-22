@@ -17,8 +17,8 @@ import java.util.Optional;
 public class ApplicantController {
 
 
-    private ApplicantService applicantService;
-    private RabbitTemplate rabbitTemplate;
+    private final ApplicantService applicantService;
+    private final RabbitTemplate rabbitTemplate;
 
 
     public ApplicantController(ApplicantService applicantService, RabbitTemplate rabbitTemplate) {
@@ -76,7 +76,7 @@ public class ApplicantController {
         applicantService.applyToCredit(applicantId);
         rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE,RabbitMQConfig.ROUTING_KEY,applicant);
 
-       return applicantService.creditResultResponse(applicant);
+        return applicantService.creditResultResponse(applicant);
     }
 
 
