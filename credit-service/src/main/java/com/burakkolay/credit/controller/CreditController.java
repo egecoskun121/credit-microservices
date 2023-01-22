@@ -28,12 +28,13 @@ public class CreditController {
 
     @GetMapping("/all")
     public ResponseEntity getAllCredits(){
-        List<Credit> allCredits = creditService.getAllCredits();
 
+        List<Credit> allCredits = creditService.getAllCredits();
         return ResponseEntity.ok(allCredits);
+
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public ResponseEntity getCreditById(@PathVariable("id") Long id){
         Credit credit = creditService.getById(id);
 
