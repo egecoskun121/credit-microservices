@@ -29,7 +29,6 @@ public class Applicant implements Serializable {
 
     private int creditRating;
 
-
     @OneToMany(cascade = CascadeType.ALL)
     @JsonUnwrapped
     private List<Credit> credit;
