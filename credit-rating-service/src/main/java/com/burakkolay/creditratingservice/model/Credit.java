@@ -17,9 +17,11 @@ public class Credit {
     @Id
     private Long id;
     @Transient
-    private int creditBalance;
+    private double creditBalance;
     @Transient
     private String creditResult;
+    @Transient
+    private double assurance;
 
 
 }

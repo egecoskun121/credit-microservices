@@ -16,6 +16,7 @@ public class Credit implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int creditBalance;
+    private double creditBalance;
     private CreditResult creditResult;
+    private double assurance;
 }
