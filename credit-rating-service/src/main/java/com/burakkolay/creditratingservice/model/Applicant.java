@@ -1,13 +1,14 @@
 package com.burakkolay.creditratingservice.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.Transient;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -33,9 +34,12 @@ public class Applicant implements Serializable {
     private String phoneNumber;
 
     private int creditRating;
-
     @Transient
-    @OneToMany
+    @JsonFormat(pattern="yyyy-MM-dd")
+    private Date dateOfBirth;
+
+    @OneToMany(cascade = CascadeType.ALL,orphanRemoval = true)
+    @JoinColumn(name = "applicant_id")
     private List<Credit> credit;
 
     public Applicant deepCopy(Applicant applicant){
@@ -47,6 +51,7 @@ public class Applicant implements Serializable {
                 applicant.getMonthlyIncome(),
                 applicant.getPhoneNumber(),
                 applicant.getCreditRating(),
+                applicant.getDateOfBirth(),
                 applicant.getCredit());
     }
 
