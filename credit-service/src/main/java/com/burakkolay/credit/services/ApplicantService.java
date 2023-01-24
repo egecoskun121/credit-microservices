@@ -21,7 +21,7 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +70,7 @@ public class ApplicantService {
     }
 
     public void delete(Long id) {
-        getById(id);
+        //getById(id);
         applicantRepository.deleteById(id);
     }
 
@@ -84,6 +84,7 @@ public class ApplicantService {
         credit.setCreditResult(CreditResult.WAITING);
         credits.add(credit);
         byId.setCredit(credits);
+        creditRepository.save(credit);
         System.out.println(byId);
 
     }
@@ -110,8 +111,10 @@ public class ApplicantService {
         }));
     }
 
-    public void applyToCredit(@RequestParam(name = "id") Long applicantId) {
+    public void applyToCredit(Long applicantId,Double assurance) {
             Credit credit = creditService.create();
+            if(assurance==null) assurance=0.0;
+            credit.setAssurance(assurance);
             addCreditToApplicant(credit,applicantId);
     }
 

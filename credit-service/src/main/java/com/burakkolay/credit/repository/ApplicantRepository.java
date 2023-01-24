@@ -12,6 +12,6 @@ public interface ApplicantRepository extends JpaRepository<Applicant,Long> {
     Long getApplicantByIdentificationNumber(@Param("identificationNumber") Long identificationNumber);
 
 
-    @Query(value = "SELECT * FROM applicant WHERE id= (SELECT applicant_id FROM applicant_credit WHERE credit_id= (:creditId))",nativeQuery = true)
+    @Query(value = "SELECT * FROM applicant WHERE id= (SELECT applicant_id FROM credit WHERE id= (:creditId))",nativeQuery = true)
     Applicant getApplicantFromCreditId(@Param("creditId")Long creditId);
 }
