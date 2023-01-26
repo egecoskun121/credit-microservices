@@ -3,6 +3,7 @@ package com.burakkolay.credit.controller;
 import com.burakkolay.credit.config.RabbitMQConfig;
 import com.burakkolay.credit.model.entity.Applicant;
 import com.burakkolay.credit.model.DTO.ApplicantDTO;
+import com.burakkolay.credit.model.entity.RegisterObject;
 import com.burakkolay.credit.services.ApplicantService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
@@ -126,6 +127,18 @@ public class ApplicantController {
     public RedirectView updateOwner(@PathVariable("applicantId")Long applicantId,@ModelAttribute ApplicantDTO applicantDTO){
         applicantService.update(applicantDTO,applicantId);
         RedirectView redirectView = new RedirectView("http://localhost:8080/api/v1/applicant/showList");
+        return redirectView;
+    }
+
+    @PostMapping(value = {"/apply"})
+    public RedirectView applyToCredit(@ModelAttribute RegisterObject registerObject){
+
+        Applicant applicant=applicantService.getByIdentificationNumber(registerObject.getIdentificationNumber());
+        applicantService.applyCreditToApplicant(registerObject.getIdentificationNumber(), registerObject.getAssurance());
+        //applicantService.applyToCredit(applicantIdNumber,assurance);
+        rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE,RabbitMQConfig.ROUTING_KEY,applicant);
+        //applicantService.creditResultResponse(applicant);
+        RedirectView redirectView = new RedirectView("http://localhost:8080/api/v1/credit/getCreditsByUser/"+registerObject.getIdentificationNumber());
         return redirectView;
     }
 }
