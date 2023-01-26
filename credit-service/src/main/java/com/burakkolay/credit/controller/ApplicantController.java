@@ -44,7 +44,7 @@ public class ApplicantController {
 
     @GetMapping("/byIn/{in}")
     public ResponseEntity getApplicantByIdentificationNumber(@PathVariable("in") Long identificationNumber) {
-        Optional<Applicant> byIn = applicantService.getByIdentificationNumber(identificationNumber);
+       Applicant byIn = applicantService.getByIdentificationNumber(identificationNumber);
         return ResponseEntity.status(HttpStatus.OK).body(byIn);
     }
 
