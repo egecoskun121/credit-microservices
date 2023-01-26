@@ -9,6 +9,7 @@ import com.burakkolay.credit.services.ApplicantService;
 import com.burakkolay.credit.services.CreditService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
@@ -69,14 +70,14 @@ public class CreditController {
 //    }
 
     /*******************************************************************************************/
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/showList")
     public ModelAndView showCreditList(){
         ModelAndView mav = new ModelAndView("list-credits");
         mav.addObject("credits",creditService.getAllCredits());
         return mav;
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "/deleteCredit")
     public RedirectView deleteCredit(@RequestParam Long creditId){
         creditService.delete(creditId);

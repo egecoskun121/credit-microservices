@@ -7,6 +7,7 @@ import com.burakkolay.credit.services.ApplicantService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -81,7 +82,7 @@ public class ApplicantController {
         return applicantService.creditResultResponse(applicant);
     }
     /*******************************************************************************************************/
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/showList")
     public ModelAndView showApplicantList(){
         ModelAndView mav = new ModelAndView("list-applicants");
@@ -103,7 +104,7 @@ public class ApplicantController {
         RedirectView redirectView = new RedirectView("http://localhost:8080/api/v1/applicant/showList");
         return redirectView;
     }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "/deleteApplicant")
     public RedirectView deleteApplicant(@RequestParam Long applicantId){
         applicantService.delete(applicantId);
@@ -111,6 +112,7 @@ public class ApplicantController {
         return redirectView;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/showUpdateForm")
     public ModelAndView showUpdateForm(@RequestParam Long applicantId){
         ModelAndView mav = new ModelAndView("update-applicant-form");
@@ -119,6 +121,7 @@ public class ApplicantController {
         return mav;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "/updateApplicant/{applicantId}")
     public RedirectView updateOwner(@PathVariable("applicantId")Long applicantId,@ModelAttribute ApplicantDTO applicantDTO){
         applicantService.update(applicantDTO,applicantId);
