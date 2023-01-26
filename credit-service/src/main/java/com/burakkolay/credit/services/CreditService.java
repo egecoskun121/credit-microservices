@@ -45,4 +45,7 @@ public class CreditService {
         creditRepository.delete(getById(id));
     }
 
+    public List<Credit> getCreditByApplicantId(Long id){
+        return creditRepository.getCreditsByApplicantId(id);
+    }
 }
