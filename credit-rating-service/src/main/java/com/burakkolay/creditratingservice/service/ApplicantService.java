@@ -26,8 +26,9 @@ public class ApplicantService {
 
     @RabbitListener(queues = "credit-queue")
     public void processMessage(Applicant applicant){
-        Random randomRatingGenerator = new Random();
-        applicant.setCreditRating(randomRatingGenerator.nextInt(0,2000));
+
+
+        applicant.setCreditRating(760);
         //Credit credit = applicant.getCredit().get(0);
         Applicant copyApplicant = applicant.deepCopy(applicant);
         //credit.setApplicant(applicant);
