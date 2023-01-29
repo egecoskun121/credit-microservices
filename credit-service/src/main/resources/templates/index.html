@@ -12,8 +12,28 @@
 </head>
 <!--<body th:style="'background:url('+ @{/images/v.jpg} +');'">-->
 
+<style>
+  body{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(to left,#AEE2Ff,#F2CD5C);
+  }
+  .center-screen{
+    width: 30%;
+    height: 50%;
+    margin: auto;
+  }
+  h1{
+margin-bottom: 50px;
+    text-align: center;
+  }
+</style>
+<body>
+
 <div class="center-screen">
-  <center>  <h1 class="form-signin-heading" style="color:white;">Welcome to Credit Center</h1> </center>
+  <h1  style="color:black;">Welcome to Credit Center!</h1>
   <form class="form-signin" method="get" th:action="@{/login}">
     <div class="form-group">
       <button class="btn btn-lg btn-primary btn-block" type="submit">Admin Panel</button>
@@ -31,7 +51,7 @@
   </form>
   <form class="form-signin" method="get" th:action="@{/api/v1/credit/showCreditForm}">
     <div class="form-group">
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Find credit</button>
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Search credit</button>
     </div>
   </form>
 </div>
