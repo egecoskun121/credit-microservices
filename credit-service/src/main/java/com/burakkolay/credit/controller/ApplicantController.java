@@ -101,7 +101,7 @@ public class ApplicantController {
     @PostMapping("/saveApplicant")
     public RedirectView saveApplicant(@ModelAttribute ApplicantDTO applicantDTO){
         applicantService.create(applicantDTO);
-        return new RedirectView("http://localhost:8080/api/v1/applicant/showList");
+        return new RedirectView("http://localhost:8080");
     }
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "/deleteApplicant")
