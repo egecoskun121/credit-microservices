@@ -73,6 +73,13 @@ public class CreditController {
         mav.addObject("credits",creditService.getAllCredits());
         return mav;
     }
+
+    @GetMapping("/checkFailed")
+    public ModelAndView birtDateAndIdentificationNumberCheckFail(){
+        ModelAndView mav = new ModelAndView("exists");
+        return mav;
+    }
+
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(path = "/deleteCredit")
     public RedirectView deleteCredit(@RequestParam Long creditId){
@@ -91,6 +98,8 @@ public class CreditController {
         // There may be a change in the date of birth after coming to the credit rating service
         if(value.equals(value2)||value.equals(value2+75600000)){
             redirectView.setUrl("http://localhost:8080/api/v1/credit/getCreditsByUser/"+applicant.getIdentificationNumber());
+        }else{
+            redirectView.setUrl("http://localhost:8080/api/v1/credit/checkFailed");
         }
         return redirectView;
     }
