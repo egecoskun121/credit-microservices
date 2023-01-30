@@ -103,7 +103,6 @@ public class ApplicantService {
             byId.setFirstName(applicantDTO.getFirstName());
             byId.setLastName(applicantDTO.getLastName());
             byId.setPhoneNumber(applicantDTO.getPhoneNumber());
-            byId.setIdentificationNumber(applicantDTO.getIdentificationNumber());
 
         return applicantRepository.save(byId);
     }
