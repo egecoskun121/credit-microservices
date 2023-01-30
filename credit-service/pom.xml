@@ -14,7 +14,7 @@
     <name>FinalProject</name>
     <description>FinalProject</description>
     <properties>
-        <spring.boot.mainclass>com.burakkolay.credit.CreditApplication</spring.boot.mainclass>
+        <spring.boot.mainclass>com.egecoskun121.credit.CreditApplication</spring.boot.mainclass>
         <java.version>17</java.version>
         <mapstruct.version>1.5.2.Final</mapstruct.version>
         <org.lombok.version>1.18.24</org.lombok.version>
