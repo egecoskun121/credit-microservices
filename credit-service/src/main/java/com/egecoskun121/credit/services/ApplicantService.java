@@ -88,6 +88,14 @@ public class ApplicantService {
         System.out.println(byId);
     }
 
+    public boolean isApplicantExistsWithIdentificationNumber(Long identificationNumber){
+        return applicantRepository.existsApplicantByIdentificationNumber(identificationNumber);
+    }
+
+    public boolean isApplicantExistsWithPhoneNumber(String phoneNumber){
+        return applicantRepository.existsApplicantByPhoneNumber(phoneNumber);
+    }
+
     public void applyCreditToApplicant(Long id,double assurance){
         Applicant applicant = getByIdentificationNumber(id);
         Credit credit = creditService.create();
