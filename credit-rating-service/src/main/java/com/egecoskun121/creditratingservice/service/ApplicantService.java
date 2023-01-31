@@ -25,13 +25,9 @@ public class ApplicantService {
     public void processMessage(Applicant applicant){
 
 
-        applicant.setCreditRating(760);
-        //Credit credit = applicant.getCredit().get(0);
+        applicant.setCreditRating((int) (Math.random()*2000));
         Applicant copyApplicant = applicant.deepCopy(applicant);
-        //credit.setApplicant(applicant);
-
         creditRepository.saveAll(applicant.getCredit());
-
         applicantRepository.save(copyApplicant);
 
         sendMessage(applicant);
